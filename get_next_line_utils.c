@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 16:16:55 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/15 13:03:55 by zminhas          ###   ########.fr       */
+/*   Updated: 2020/12/15 18:30:49 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,23 @@ char	*ft_strdup(const char *s1)
 	char	*dest;
 	int		i;
 
-	if (!(dest = (char *)ft_calloc(sizeof(char), (ft_strlen(s1) + 1))))
+	if (!(dest = (char *)ft_calloc(sizeof(char), (ft_strlen_remix(s1) + 1))))
 		return (NULL);
 	i = -1;
 	while (s1[++i])
 		dest[i] = s1[i];
 	return (dest);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	int i;
+
+	i = -1;
+	while (s[++i])
+		if (s[i] == (char)c)
+			return ((char *)(s + i));
+	if (!c)
+		return ((char *)(s + i));
+	return (NULL);
 }

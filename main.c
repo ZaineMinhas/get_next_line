@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 17:47:32 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/14 17:51:58 by zminhas          ###   ########.fr       */
+/*   Updated: 2020/12/15 18:34:41 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	add(char *str)
 {
 	static char	*a;
+
 	if (!a)
 		printf("First occurence\n");
 	else
@@ -22,7 +23,7 @@ void	add(char *str)
 	a = str;
 }
 
-int main(void)
+int		main(void)
 {
 	add("Boojour");
 	add("Comment");
