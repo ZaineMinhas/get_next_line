@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 16:13:57 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/16 14:40:31 by zminhas          ###   ########.fr       */
+/*   Updated: 2020/12/16 15:54:07 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,21 +79,22 @@ int		get_next_line(int fd, char **line)
 	str_save = NULL;
 	while (read(fd, buf, BUFFER_SIZE) > 0)
 	{
+		printf("le buf apres lecture : %s\n", buf);
 		str_save = ft_strjoin_remix(str_save, buf);
 		printf("a join save et buf = %s\n", str_save);
 		if (ft_backslash_checker(str_save))
 		{
-			printf("rentre dans le if\n");
+			printf("--rentre dans le if\n");
 			printf("Valeur de depart de str_save : %s\n", str_save);
 			*line = ft_strdup_remix(str_save);
 			printf("valeur de line apres separation du save : %s\n", *line);
 			str_save = ft_strdup(ft_strchr(buf, '\n') + 1);
-			printf("valeur de str_save apres avoir chopper le apres \\n : %s", str_save);
-			printf("termine le if\n");
+			printf("valeur de str_save apres avoir chopper le apres \\n : %s\n", str_save);
+			printf("--termine le if\n");
 			return (1);
 		}
-		printf("ne fait pas le if\n");
+		printf("--ne fait pas le if\n");
 	}
-	printf("est sortie de la boucle\n");
+	printf("Fin du programme\n");
 	return (0);
 }

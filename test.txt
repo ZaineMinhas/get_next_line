@@ -1,9 +1,16 @@
-Salut a tous moi c'est marton
-j'adore etre un ouyabu et mon jeu prefere c'est osu
-mais y'a aussi celeste
-j'aime les lolis eet la lois belge
-trop bien
-abonnez vous a ma chaine twitch ; AlienXbe.
-a ne pas confondre avec aliens
-et donnez un max de sub et de bus>
-noice.
+Timmy est un garçon moyen que personne ne comprends.
+Maman, Papa, Vicky lui donnent sans arrêt des ordres.
+(Au lit toi !)
+Le malheur qui vient dans sa chambre est chassé immédiatement.
+Par ses poissons magiques qui lui accordent tous ses souhaits, parce qu'en réalité...
+...Ce sont ses parrains magiques ! Parrains magiques !
+Baguettes magiques ! Et couronne volante !
+Ses parrains magiques ! Parrains magiques !
+Corps super-musclé et voiture de sport !
+Complexe, oie latex, daim martien, jus d'raisin, gros boa, bavarois, frites pour trois, chocolat !
+Ses parrains magiques ! Parrains magiques !
+Ça te rend gai quand tu es le garçon
+Qu'a des parrains magiques !
+(Tu parles !)
+
+c get_next_line_utils.c get_next_line.c get_next_line.h main.c -D BUFFER_SIZE=32
