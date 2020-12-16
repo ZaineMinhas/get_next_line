@@ -1,6 +1,9 @@
-Hey salut les amis c'est David |Lafarge pokemon
-Bonjour a tous l|es amis
-Salut mec.
-
-char	buf[BUFFER_SIZE + 1];
-read(fd, buf, BUFFER_SIZE);
+Salut a tous moi c'est marton
+j'adore etre un ouyabu et mon jeu prefere c'est osu
+mais y'a aussi celeste
+j'aime les lolis eet la lois belge
+trop bien
+abonnez vous a ma chaine twitch ; AlienXbe.
+a ne pas confondre avec aliens
+et donnez un max de sub et de bus>
+noice.

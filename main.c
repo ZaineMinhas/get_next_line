@@ -6,27 +6,30 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 17:47:32 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/15 18:34:41 by zminhas          ###   ########.fr       */
+/*   Updated: 2020/12/16 13:51:57 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include "get_next_line.h"
 
-void	add(char *str)
+int	main(void)
 {
-	static char	*a;
+	char	*str;
+	int		fd;
+	int		size;
+	int		i;
 
-	if (!a)
-		printf("First occurence\n");
-	else
-		printf("Previous occurence was %s\n", a);
-	a = str;
-}
-
-int		main(void)
-{
-	add("Boojour");
-	add("Comment");
-	add("ca va");
+	i = -1;
+	size = 10;
+	if (!(fd = open("test.txt", O_RDONLY)))
+		return (-1);
+	str = NULL;
+	while (++i < size)
+	{
+		get_next_line(fd, &str);
+		printf("%s\n", str);
+	}
+	close(fd);
 	return (0);
 }
