@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 16:13:57 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/16 15:54:07 by zminhas          ###   ########.fr       */
+/*   Updated: 2020/12/16 19:23:53 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*ft_strdup_remix(char *str)
 	if (!str)
 		return (NULL);
 	size = 0;
-	while (str[size] && str[size] != '\n')
+	while (str[size] && !ft_backslash_checker(str))
 		size++;
 	if (!(dest = ft_calloc(sizeof(char), size + 1)))
 		return (NULL);
@@ -77,7 +77,7 @@ int		get_next_line(int fd, char **line)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (-1);
 	str_save = NULL;
-	while (read(fd, buf, BUFFER_SIZE) > 0)
+	while (read(fd, buf, BUFFER_SIZE) > 0 && !ft_backslash_checker(str_save))
 	{
 		printf("le buf apres lecture : %s\n", buf);
 		str_save = ft_strjoin_remix(str_save, buf);
