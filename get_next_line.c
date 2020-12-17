@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 16:13:57 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/16 19:23:53 by zminhas          ###   ########.fr       */
+/*   Updated: 2020/12/17 19:24:09 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ char	*ft_strdup_remix(char *str)
 	if (!str)
 		return (NULL);
 	size = 0;
-	while (str[size] && !ft_backslash_checker(str))
+	while (str[size] != '\n')
 		size++;
 	if (!(dest = ft_calloc(sizeof(char), size + 1)))
 		return (NULL);
 	size = -1;
-	while (dest[++size])
+	while (str[++size] != '\n')
 		dest[size] = str[size];
 	return (dest);
 }
@@ -73,19 +73,21 @@ int		get_next_line(int fd, char **line)
 {
 	static char *str_save;
 	char		buf[BUFFER_SIZE + 1];
+	size_t		i;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || !line)
 		return (-1);
-	str_save = NULL;
 	while (read(fd, buf, BUFFER_SIZE) > 0 && !ft_backslash_checker(str_save))
 	{
+		i = ft_strlen_remix(buf);
+		buf[i - 6] = 0;
+		printf("str_save avant lecture : %s\n", str_save);
 		printf("le buf apres lecture : %s\n", buf);
 		str_save = ft_strjoin_remix(str_save, buf);
 		printf("a join save et buf = %s\n", str_save);
 		if (ft_backslash_checker(str_save))
 		{
 			printf("--rentre dans le if\n");
-			printf("Valeur de depart de str_save : %s\n", str_save);
 			*line = ft_strdup_remix(str_save);
 			printf("valeur de line apres separation du save : %s\n", *line);
 			str_save = ft_strdup(ft_strchr(buf, '\n') + 1);
@@ -95,6 +97,6 @@ int		get_next_line(int fd, char **line)
 		}
 		printf("--ne fait pas le if\n");
 	}
-	printf("Fin du programme\n");
+	printf("FIN DU PROGRAMME\n");
 	return (0);
 }

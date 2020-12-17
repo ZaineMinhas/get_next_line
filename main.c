@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 17:47:32 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/16 13:51:57 by zminhas          ###   ########.fr       */
+/*   Updated: 2020/12/17 18:40:34 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(void)
 	while (++i < size)
 	{
 		get_next_line(fd, &str);
-		printf("%s\n", str);
+		printf("%s - %d\n", str, i);
 	}
 	close(fd);
 	return (0);
