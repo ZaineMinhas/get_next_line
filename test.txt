@@ -13,4 +13,4 @@ Ses parrains magiques ! Parrains magiques !
 Qu'a des parrains magiques !
 (Tu parles !)
 
-c get_next_line_utils.c get_next_line.c get_next_line.h main.c -D BUFFER_SIZE=32
+c get_next_line_utils.c get_next_line.c main.c -D BUFFER_SIZE=32

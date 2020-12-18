@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 16:13:57 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/17 19:24:09 by zminhas          ###   ########.fr       */
+/*   Updated: 2020/12/18 17:42:50 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ size_t	ft_strlen_remix(const char *s)
 {
 	size_t i;
 
-	if (!s)
-		return (0);
+	 if (!s)
+	 	return (0);
 	i = 0;
 	while (s[i])
 		i++;
@@ -73,30 +73,29 @@ int		get_next_line(int fd, char **line)
 {
 	static char *str_save;
 	char		buf[BUFFER_SIZE + 1];
-	size_t		i;
+	int			i;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || !line)
 		return (-1);
-	while (read(fd, buf, BUFFER_SIZE) > 0 && !ft_backslash_checker(str_save))
+	while ((i = (int)read(fd, buf, BUFFER_SIZE)) > 0)
 	{
-		i = ft_strlen_remix(buf);
-		buf[i - 6] = 0;
-		printf("str_save avant lecture : %s\n", str_save);
-		printf("le buf apres lecture : %s\n", buf);
+		buf[i] = 0;
+		//printf("str_save avant lecture : %s\n", str_save);
+		//printf("le buf apres lecture : %s\n", buf);
 		str_save = ft_strjoin_remix(str_save, buf);
-		printf("a join save et buf = %s\n", str_save);
+		//printf("a join save et buf = %s\n", str_save);
 		if (ft_backslash_checker(str_save))
 		{
-			printf("--rentre dans le if\n");
+			//printf("--rentre dans le if\n");
 			*line = ft_strdup_remix(str_save);
-			printf("valeur de line apres separation du save : %s\n", *line);
+			//printf("valeur de line apres separation du save : %s\n", *line);
 			str_save = ft_strdup(ft_strchr(buf, '\n') + 1);
-			printf("valeur de str_save apres avoir chopper le apres \\n : %s\n", str_save);
-			printf("--termine le if\n");
+			//printf("valeur de str_save apres avoir chopper le apres \\n : %s\n", str_save);
+			//printf("--termine le if\n");
 			return (1);
 		}
-		printf("--ne fait pas le if\n");
+		//printf("--ne fait pas le if\n");
 	}
-	printf("FIN DU PROGRAMME\n");
+	//printf("FIN DU PROGRAMME\n");
 	return (0);
 }

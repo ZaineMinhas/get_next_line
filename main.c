@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 17:47:32 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/17 18:40:34 by zminhas          ###   ########.fr       */
+/*   Updated: 2020/12/18 17:48:17 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(void)
 	int		i;
 
 	i = -1;
-	size = 10;
+	size = 14;
 	if (!(fd = open("test.txt", O_RDONLY)))
 		return (-1);
 	str = NULL;
