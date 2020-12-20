@@ -6,19 +6,18 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 16:13:57 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/20 12:59:01 by zminhas          ###   ########.fr       */
+/*   Updated: 2020/12/20 13:16:19 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 size_t	ft_strlen_remix(const char *s)
 {
 	size_t i;
 
-	 if (!s)
-	 	return (0);
+	if (!s)
+		return (0);
 	i = 0;
 	while (s[i])
 		i++;
@@ -89,9 +88,9 @@ int		get_next_line(int fd, char **line)
 		str_save = ft_strjoin_remix(str_save, buf);
 		if (ft_backslash_checker(str_save))
 		{
-		*line = ft_strdup_remix(str_save);
-		str_save = ft_strdup(ft_strchr(str_save, '\n') + 1);
-		return (1);
+			*line = ft_strdup_remix(str_save);
+			str_save = ft_strdup(ft_strchr(str_save, '\n') + 1);
+			return (1);
 		}
 	}
 	return (0);
