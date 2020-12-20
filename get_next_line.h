@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 16:10:16 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/16 13:51:45 by zminhas          ###   ########.fr       */
+/*   Updated: 2020/12/20 14:35:55 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <limits.h>
 
 int			get_next_line(int fd, char **line);
 size_t		ft_strlen_remix(const char *s);

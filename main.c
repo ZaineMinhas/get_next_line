@@ -6,11 +6,12 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 17:47:32 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/18 17:48:17 by zminhas          ###   ########.fr       */
+/*   Updated: 2020/12/20 14:35:06 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <limits.h>
 #include "get_next_line.h"
 
 int	main(void)

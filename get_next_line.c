@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 16:13:57 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/20 13:16:19 by zminhas          ###   ########.fr       */
+/*   Updated: 2020/12/20 15:03:03 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*ft_strjoin_remix(char const *s1, char const *s2)
 	return (dest);
 }
 
-char	*ft_strdup_remix(char *str)
+char	*ft_get_line(char *str)
 {
 	size_t	size;
 	char	*dest;
@@ -70,28 +70,27 @@ char	*ft_strdup_remix(char *str)
 
 int		get_next_line(int fd, char **line)
 {
-	static char *str_save;
-	char		buf[BUFFER_SIZE + 1];
+	static char *str_save[OPEN_MAX];
+	char		*buf;
 	int			i;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || !line)
+	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE < 1 || !line ||\
+	!(buf = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
-	if (ft_backslash_checker(str_save))
+	i = 1;
+	while (!ft_backslash_checker(str_save[fd]) && i)
 	{
-		*line = ft_strdup_remix(str_save);
-		str_save = ft_strdup(ft_strchr(str_save, '\n') + 1);
-		return (1);
-	}
-	while ((i = (int)read(fd, buf, BUFFER_SIZE)) > 0)
-	{
-		buf[i] = 0;
-		str_save = ft_strjoin_remix(str_save, buf);
-		if (ft_backslash_checker(str_save))
+		if ((i = (int)read(fd, buf, BUFFER_SIZE)) < 0)
 		{
-			*line = ft_strdup_remix(str_save);
-			str_save = ft_strdup(ft_strchr(str_save, '\n') + 1);
-			return (1);
+			free(buf);
+			return (-1);
 		}
+		buf[i] = 0;
+		str_save[fd] = ft_strjoin_remix(str_save[fd], buf);
 	}
+	*line = ft_get_line(str_save[fd]);
+	str_save[fd] = ft_strdup(ft_strchr(str_save[fd], '\n') + 1);
+	if (i)
+		return (1);
 	return (0);
 }
