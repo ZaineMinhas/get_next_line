@@ -6,13 +6,13 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 16:13:57 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/20 15:03:03 by zminhas          ###   ########.fr       */
+/*   Updated: 2020/12/20 15:30:44 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen_remix(const char *s)
+size_t	ft_strlen_protected(const char *s)
 {
 	size_t i;
 
@@ -42,11 +42,11 @@ char	*ft_strjoin_remix(char const *s1, char const *s2)
 	char	*dest;
 	size_t	size;
 
-	size = ft_strlen_remix(s1) + ft_strlen_remix(s2) + 1;
+	size = ft_strlen_protected(s1) + ft_strlen_protected(s2) + 1;
 	if (!(dest = (char *)ft_calloc(sizeof(char), size)))
 		return (NULL);
-	ft_memcpy(dest, s1, ft_strlen_remix(s1));
-	ft_memcpy(dest + ft_strlen_remix(s1), s2, ft_strlen_remix(s2));
+	ft_memcpy(dest, s1, ft_strlen_protected(s1));
+	ft_memcpy(dest + ft_strlen_protected(s1), s2, ft_strlen_protected(s2));
 	return (dest);
 }
 
@@ -58,9 +58,9 @@ char	*ft_get_line(char *str)
 	if (!str)
 		return (NULL);
 	size = 0;
-	while (str[size] != '\n')
+	while (str[size] && str[size] != '\n')
 		size++;
-	if (!(dest = ft_calloc(sizeof(char), size + 1)))
+	if (!(dest = (char *)ft_calloc(sizeof(char), size + 1)))
 		return (NULL);
 	size = -1;
 	while (str[++size] != '\n')
@@ -75,7 +75,7 @@ int		get_next_line(int fd, char **line)
 	int			i;
 
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE < 1 || !line ||\
-	!(buf = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+	!(buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
 	i = 1;
 	while (!ft_backslash_checker(str_save[fd]) && i)
