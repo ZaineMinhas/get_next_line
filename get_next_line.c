@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 16:13:57 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/18 17:42:50 by zminhas          ###   ########.fr       */
+/*   Updated: 2020/12/20 12:51:53 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,16 @@ int		get_next_line(int fd, char **line)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || !line)
 		return (-1);
+	if (ft_backslash_checker(str_save))
+	{
+		//printf("str_save contient un \\n : %s\n", str_save);
+		*line = ft_strdup_remix(str_save);
+		//printf("valeur de line apres separation du save : %s\n", *line);
+		str_save = ft_strdup(ft_strchr(buf, '\n') + 1);
+		//printf("valeur de str_save apres avoir chopper le apres \\n : %s\n", str_save);
+		//printf("--termine le if special\n");
+		return (1);
+	}
 	while ((i = (int)read(fd, buf, BUFFER_SIZE)) > 0)
 	{
 		buf[i] = 0;
