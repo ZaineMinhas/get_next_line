@@ -5,6 +5,9 @@ Le malheur qui vient dans sa chambre est chassé immédiatement.
 Par ses poissons magiques qui lui accordent tous ses souhaits, parce qu'en réalité...
 ...Ce sont ses parrains magiques ! Parrains magiques !
 Baguettes magiques ! Et couronne volante !
+
+
+
 Ses parrains magiques ! Parrains magiques !
 Corps super-musclé et voiture de sport !
 Complexe, oie latex, daim martien, jus d'raisin, gros boa, bavarois, frites pour trois, chocolat !
@@ -13,4 +16,8 @@ Ses parrains magiques ! Parrains magiques !
 Qu'a des parrains magiques !
 (Tu parles !)
 
+
+
+
 c get_next_line_utils.c get_next_line.c main.c -D BUFFER_SIZE=1000000000
+ceci est un texte

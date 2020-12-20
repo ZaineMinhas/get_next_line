@@ -6,13 +6,13 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 16:13:57 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/20 15:30:44 by zminhas          ###   ########.fr       */
+/*   Updated: 2020/12/20 19:27:22 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen_protected(const char *s)
+size_t	ft_strlen_protect(const char *s)
 {
 	size_t i;
 
@@ -42,11 +42,11 @@ char	*ft_strjoin_remix(char const *s1, char const *s2)
 	char	*dest;
 	size_t	size;
 
-	size = ft_strlen_protected(s1) + ft_strlen_protected(s2) + 1;
+	size = ft_strlen_protect(s1) + ft_strlen_protect(s2) + 1;
 	if (!(dest = (char *)ft_calloc(sizeof(char), size)))
 		return (NULL);
-	ft_memcpy(dest, s1, ft_strlen_protected(s1));
-	ft_memcpy(dest + ft_strlen_protected(s1), s2, ft_strlen_protected(s2));
+	ft_memcpy(dest, s1, ft_strlen_protect(s1));
+	ft_memcpy(dest + ft_strlen_protect(s1), s2, ft_strlen_protect(s2));
 	return (dest);
 }
 
@@ -62,9 +62,12 @@ char	*ft_get_line(char *str)
 		size++;
 	if (!(dest = (char *)ft_calloc(sizeof(char), size + 1)))
 		return (NULL);
-	size = -1;
-	while (str[++size] != '\n')
+	size = 0;
+	while (str[size] && str[size] != '\n')
+	{
 		dest[size] = str[size];
+		size++;
+	}
 	return (dest);
 }
 
@@ -88,8 +91,9 @@ int		get_next_line(int fd, char **line)
 		buf[i] = 0;
 		str_save[fd] = ft_strjoin_remix(str_save[fd], buf);
 	}
+	free(buf);
 	*line = ft_get_line(str_save[fd]);
-	str_save[fd] = ft_strdup(ft_strchr(str_save[fd], '\n') + 1);
+	str_save[fd] = ft_strdup(ft_strchr_remix(str_save[fd], '\n'));
 	if (i)
 		return (1);
 	return (0);

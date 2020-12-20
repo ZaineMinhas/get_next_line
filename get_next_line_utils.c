@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 16:16:55 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/20 15:32:05 by zminhas          ###   ########.fr       */
+/*   Updated: 2020/12/20 19:27:20 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,14 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	return ((void *)dest2);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(char *s1)
 {
 	char	*dest;
 	int		i;
 
-	if (!(dest = (char *)ft_calloc(sizeof(char), (ft_strlen_remix(s1) + 1))))
+	if (!s1)
+		return (NULL);
+	if (!(dest = (char *)ft_calloc(sizeof(char), (ft_strlen_protect(s1) + 1))))
 		return (NULL);
 	i = -1;
 	while (s1[++i])
@@ -58,15 +60,16 @@ char	*ft_strdup(const char *s1)
 	return (dest);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr_remix(const char *s, int c)
 {
 	int i;
 
+	if (!s)
+		return (NULL);
 	i = -1;
 	while (s[++i])
 		if (s[i] == (char)c)
-			return ((char *)(s + i));
-	if (!c)
-		return ((char *)(s + i));
+			return ((char *)(s + i + 1));
+	free((void *)s);
 	return (NULL);
 }
