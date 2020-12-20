@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 16:13:57 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/20 12:51:53 by zminhas          ###   ########.fr       */
+/*   Updated: 2020/12/20 12:59:01 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,33 +79,20 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	if (ft_backslash_checker(str_save))
 	{
-		//printf("str_save contient un \\n : %s\n", str_save);
 		*line = ft_strdup_remix(str_save);
-		//printf("valeur de line apres separation du save : %s\n", *line);
-		str_save = ft_strdup(ft_strchr(buf, '\n') + 1);
-		//printf("valeur de str_save apres avoir chopper le apres \\n : %s\n", str_save);
-		//printf("--termine le if special\n");
+		str_save = ft_strdup(ft_strchr(str_save, '\n') + 1);
 		return (1);
 	}
 	while ((i = (int)read(fd, buf, BUFFER_SIZE)) > 0)
 	{
 		buf[i] = 0;
-		//printf("str_save avant lecture : %s\n", str_save);
-		//printf("le buf apres lecture : %s\n", buf);
 		str_save = ft_strjoin_remix(str_save, buf);
-		//printf("a join save et buf = %s\n", str_save);
 		if (ft_backslash_checker(str_save))
 		{
-			//printf("--rentre dans le if\n");
-			*line = ft_strdup_remix(str_save);
-			//printf("valeur de line apres separation du save : %s\n", *line);
-			str_save = ft_strdup(ft_strchr(buf, '\n') + 1);
-			//printf("valeur de str_save apres avoir chopper le apres \\n : %s\n", str_save);
-			//printf("--termine le if\n");
-			return (1);
+		*line = ft_strdup_remix(str_save);
+		str_save = ft_strdup(ft_strchr(str_save, '\n') + 1);
+		return (1);
 		}
-		//printf("--ne fait pas le if\n");
 	}
-	//printf("FIN DU PROGRAMME\n");
 	return (0);
 }
