@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/11 16:13:57 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/23 15:27:37 by zminhas          ###   ########.fr       */
+/*   Created: 2020/12/23 15:20:29 by zminhas           #+#    #+#             */
+/*   Updated: 2020/12/23 15:27:20 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen_protect(const char *s)
 {
@@ -78,7 +78,7 @@ char	*ft_get_line(char *str)
 
 int		get_next_line(int fd, char **line)
 {
-	static char *str_save;
+	static char *str_save[OPEN_MAX];
 	char		*buff;
 	int			i;
 
@@ -86,7 +86,7 @@ int		get_next_line(int fd, char **line)
 	!(buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
 	i = 1;
-	while (!ft_backslash_checker(str_save) && i)
+	while (!ft_backslash_checker(str_save[fd]) && i)
 	{
 		if ((i = (int)read(fd, buff, BUFFER_SIZE)) < 0)
 		{
@@ -94,11 +94,11 @@ int		get_next_line(int fd, char **line)
 			return (-1);
 		}
 		buff[i] = 0;
-		str_save = ft_strjoin_remix(str_save, buff);
+		str_save[fd] = ft_strjoin_remix(str_save[fd], buff);
 	}
 	free(buff);
-	*line = ft_get_line(str_save);
-	str_save = ft_strchr_dup_remix(str_save, '\n');
+	*line = ft_get_line(str_save[fd]);
+	str_save[fd] = ft_strchr_dup_remix(str_save[fd], '\n');
 	if (i)
 		return (1);
 	return (0);
