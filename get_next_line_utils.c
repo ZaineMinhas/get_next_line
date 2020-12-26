@@ -6,28 +6,34 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 16:16:55 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/23 15:26:33 by zminhas          ###   ########.fr       */
+/*   Updated: 2020/12/26 17:10:56 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_bzero(void *s, size_t n)
+size_t	ft_strlen_protect(const char *s)
 {
-	char *s2;
+	size_t i;
 
-	s2 = (char *)s;
-	while (n-- > 0)
-		s2[n] = 0;
+	if (!s)
+		return (0);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }
 
-void	*ft_calloc(size_t count, size_t size)
+void	*ft_calloc(int count, int size)
 {
-	void		*dest;
+	char		*dest;
+	int			i;
 
-	if (!(dest = malloc(sizeof(void) * (size * count))))
+	if (!(dest = (char *)malloc(sizeof(void) * (size * count))))
 		return (NULL);
-	ft_bzero(dest, (count * size));
+	i = -1;
+	while (++i < size * count)
+		dest[i] = 0;
 	return (dest);
 }
 

@@ -5,23 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/23 15:20:29 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/23 15:27:20 by zminhas          ###   ########.fr       */
+/*   Created: 2020/12/11 16:13:57 by zminhas           #+#    #+#             */
+/*   Updated: 2020/12/26 17:39:42 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-size_t	ft_strlen_protect(const char *s)
+char	*ft_check_error(int fd, char **line)
 {
-	size_t i;
+	char	*buff;
 
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE < 1 || !line)
+		return (NULL);
+	if (!(buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+		return (NULL);
+	return (buff);
 }
 
 int		ft_backslash_checker(char *str)
@@ -82,8 +81,7 @@ int		get_next_line(int fd, char **line)
 	char		*buff;
 	int			i;
 
-	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE < 1 || !line ||\
-	!(buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+	if (!(buff = ft_check_error(fd, line)))
 		return (-1);
 	i = 1;
 	while (!ft_backslash_checker(str_save[fd]) && i)
@@ -94,11 +92,13 @@ int		get_next_line(int fd, char **line)
 			return (-1);
 		}
 		buff[i] = 0;
-		str_save[fd] = ft_strjoin_remix(str_save[fd], buff);
+		if (!(str_save[fd] = ft_strjoin_remix(str_save[fd], buff)))
+			return (-1);
 	}
 	free(buff);
-	*line = ft_get_line(str_save[fd]);
-	str_save[fd] = ft_strchr_dup_remix(str_save[fd], '\n');
+	if (!(*line = ft_get_line(str_save[fd])) ||\
+	(!(str_save[fd] = ft_strchr_dup_remix(str_save[fd], '\n')) && i != 0))
+		return (-1);
 	if (i)
 		return (1);
 	return (0);
