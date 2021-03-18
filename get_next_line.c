@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 16:13:57 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/26 17:27:31 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/03/18 18:13:26 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ char	*ft_check_error(int fd, char **line)
 
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE < 1 || !line)
 		return (NULL);
-	if (!(buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+	buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buff)
 		return (NULL);
 	return (buff);
 }
 
-int		ft_backslash_checker(char *str)
+int	ft_backslash_checker(char *str)
 {
 	int	i;
 
@@ -42,7 +43,8 @@ char	*ft_strjoin_remix(char const *s1, char const *s2)
 	size_t	size;
 
 	size = ft_strlen_protect(s1) + ft_strlen_protect(s2) + 1;
-	if (!(dest = (char *)ft_calloc(sizeof(char), size)))
+	dest = (char *)ft_calloc(sizeof(char), size);
+	if (!dest)
 	{
 		if (s1)
 			free((void *)s1);
@@ -64,7 +66,8 @@ char	*ft_get_line(char *str)
 	size = 0;
 	while (str[size] && str[size] != '\n')
 		size++;
-	if (!(dest = (char *)ft_calloc(sizeof(char), size + 1)))
+	dest = (char *)ft_calloc(sizeof(char), size + 1);
+	if (!dest)
 		return (NULL);
 	size = 0;
 	while (str[size] && str[size] != '\n')
@@ -75,9 +78,9 @@ char	*ft_get_line(char *str)
 	return (dest);
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
-	static char *str_save;
+	static char	*str_save;
 	char		*buff;
 	int			i;
 
@@ -96,7 +99,7 @@ int		get_next_line(int fd, char **line)
 			return (-1);
 	}
 	free(buff);
-	if (!(*line = ft_get_line(str_save)) ||\
+	if (!(*line = ft_get_line(str_save)) || \
 	(!(str_save = ft_strchr_dup_remix(str_save, '\n')) && i != 0))
 		return (-1);
 	if (i)

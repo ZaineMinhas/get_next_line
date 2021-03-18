@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 16:16:55 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/26 17:39:54 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/03/18 18:19:27 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_strlen_protect(const char *s)
 {
-	size_t i;
+	size_t	i;
 
 	if (!s)
 		return (0);
@@ -29,7 +29,8 @@ void	*ft_calloc(int count, int size)
 	char		*dest;
 	int			i;
 
-	if (!(dest = (char *)malloc(sizeof(void) * (size * count))))
+	dest = (char *)malloc(sizeof(void) * (size * count));
+	if (!dest)
 		return (NULL);
 	i = -1;
 	while (++i < size * count)
@@ -58,7 +59,8 @@ char	*ft_strdup(char *s1)
 
 	if (!s1)
 		return (NULL);
-	if (!(dest = (char *)ft_calloc(sizeof(char), (ft_strlen_protect(s1) + 1))))
+	dest = (char *)ft_calloc(sizeof(char), (ft_strlen_protect(s1) + 1));
+	if (!dest)
 		return (NULL);
 	i = -1;
 	while (s1[++i])
@@ -75,12 +77,14 @@ char	*ft_strchr_dup_remix(const char *s, int c)
 		return (NULL);
 	i = -1;
 	while (s[++i])
+	{
 		if (s[i] == (char)c)
 		{
 			dest = ft_strdup((char *)(s + i + 1));
 			free((void *)s);
 			return (dest);
 		}
+	}
 	free((void *)s);
 	return (NULL);
 }
