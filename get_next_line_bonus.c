@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/11 16:13:57 by zminhas           #+#    #+#             */
-/*   Updated: 2021/03/18 18:20:04 by zminhas          ###   ########.fr       */
+/*   Created: 2021/03/19 16:31:39 by zminhas           #+#    #+#             */
+/*   Updated: 2021/03/19 16:34:20 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,36 +37,21 @@ int	ft_backslash_checker(char *str)
 	return (0);
 }
 
-char	*ft_strjoin_remix(char const *s1, char const *s2)
-{
-	char	*dest;
-	size_t	size;
-
-	size = ft_strlen_protect(s1) + ft_strlen_protect(s2) + 1;
-	dest = (char *)ft_calloc(sizeof(char), size);
-	if (!dest)
-	{
-		if (s1)
-			free((void *)s1);
-		return (NULL);
-	}
-	ft_memcpy(dest, s1, ft_strlen_protect(s1));
-	ft_memcpy(dest + ft_strlen_protect(s1), s2, ft_strlen_protect(s2));
-	free((void *)s1);
-	return (dest);
-}
-
 char	*ft_get_line(char *str)
 {
-	size_t	size;
 	char	*dest;
+	size_t	size;
+	size_t	i;
 
 	if (!str)
 		return (NULL);
 	size = 0;
+	i = -1;
 	while (str[size] && str[size] != '\n')
 		size++;
-	dest = (char *)ft_calloc(sizeof(char), size + 1);
+	dest = (char *)malloc(sizeof(char) * (size + 1));
+	while (++i < size + 1)
+		dest[i] = 0;
 	if (!dest)
 		return (NULL);
 	size = 0;
@@ -78,31 +63,42 @@ char	*ft_get_line(char *str)
 	return (dest);
 }
 
+int	ft_return(char **buff, int i, char **line, char **str_save)
+{
+	free(*buff);
+	*line = ft_get_line(*str_save);
+	if (!line)
+		return (-1);
+	*str_save = ft_strchr_dup_remix(*str_save, '\n');
+	if (!*str_save && i != 0)
+		return (-1);
+	if (i)
+		return (1);
+	return (0);
+}
+
 int	get_next_line(int fd, char **line)
 {
 	static char	*str_save[OPEN_MAX];
 	char		*buff;
 	int			i;
 
-	if (!(buff = ft_check_error(fd, line)))
+	buff = ft_check_error(fd, line);
+	if (!buff)
 		return (-1);
 	i = 1;
 	while (!ft_backslash_checker(str_save[fd]) && i)
 	{
-		if ((i = (int)read(fd, buff, BUFFER_SIZE)) < 0)
+		i = (int)read(fd, buff, BUFFER_SIZE);
+		if (i < 0)
 		{
 			free(buff);
 			return (-1);
 		}
 		buff[i] = 0;
-		if (!(str_save[fd] = ft_strjoin_remix(str_save[fd], buff)))
+		str_save[fd] = ft_gnljoin(str_save[fd], buff);
+		if (!str_save[fd])
 			return (-1);
 	}
-	free(buff);
-	if (!(*line = ft_get_line(str_save[fd])) || \
-	(!(str_save[fd] = ft_strchr_dup_remix(str_save[fd], '\n')) && i != 0))
-		return (-1);
-	if (i)
-		return (1);
-	return (0);
+	return (ft_return(&buff, i, line, &str_save[fd]));
 }

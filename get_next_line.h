@@ -6,7 +6,7 @@
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/11 16:10:16 by zminhas           #+#    #+#             */
-/*   Updated: 2020/12/26 17:35:00 by zminhas          ###   ########.fr       */
+/*   Updated: 2021/03/19 16:26:53 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@
 
 char	*ft_check_error(int fd, char **line);
 int		ft_backslash_checker(char *str);
-char	*ft_strjoin_remix(char const *s1, char const *s2);
 char	*ft_get_line(char *str);
+int		ft_return(char **buff, int i, char **line, char **str_save);
 int		get_next_line(int fd, char **line);
 
 size_t	ft_strlen_protect(const char *s);
-void	*ft_calloc(int count, int size);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
+char	*ft_gnljoin(char const *s1, char const *s2);
 char	*ft_strdup(char *s1);
 char	*ft_strchr_dup_remix(const char *s, int c);
 

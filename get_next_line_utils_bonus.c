@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zminhas <zminhas@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/11 16:16:55 by zminhas           #+#    #+#             */
-/*   Updated: 2021/03/18 18:19:27 by zminhas          ###   ########.fr       */
+/*   Created: 2021/03/19 16:33:26 by zminhas           #+#    #+#             */
+/*   Updated: 2021/03/19 16:33:54 by zminhas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,6 @@ size_t	ft_strlen_protect(const char *s)
 	return (i);
 }
 
-void	*ft_calloc(int count, int size)
-{
-	char		*dest;
-	int			i;
-
-	dest = (char *)malloc(sizeof(void) * (size * count));
-	if (!dest)
-		return (NULL);
-	i = -1;
-	while (++i < size * count)
-		dest[i] = 0;
-	return (dest);
-}
-
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	const char	*src2;
@@ -52,14 +38,42 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	return ((void *)dest2);
 }
 
+char	*ft_gnljoin(char const *s1, char const *s2)
+{
+	char	*dest;
+	size_t	size;
+	size_t	i;
+
+	i = -1;
+	size = ft_strlen_protect(s1) + ft_strlen_protect(s2) + 1;
+	dest = (char *)malloc(sizeof(char) * size);
+	while (++i < size)
+		dest[i] = 0;
+	if (!dest)
+	{
+		if (s1)
+			free((void *)s1);
+		return (NULL);
+	}
+	ft_memcpy(dest, s1, ft_strlen_protect(s1));
+	ft_memcpy(dest + ft_strlen_protect(s1), s2, ft_strlen_protect(s2));
+	free((void *)s1);
+	return (dest);
+}
+
 char	*ft_strdup(char *s1)
 {
 	char	*dest;
+	int		size;
 	int		i;
 
 	if (!s1)
 		return (NULL);
-	dest = (char *)ft_calloc(sizeof(char), (ft_strlen_protect(s1) + 1));
+	size = ft_strlen_protect(s1) + 1;
+	i = -1;
+	dest = (char *)malloc(sizeof(char) * (size));
+	while (++i < size)
+		dest[i] = 0;
 	if (!dest)
 		return (NULL);
 	i = -1;
